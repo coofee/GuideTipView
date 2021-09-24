@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="GuideTipView">
+        <attr name="src" format="reference"/>
+
+        <attr name="radiusRound" format="boolean"/>
+        <attr name="radius" format="dimension"/>
+        <!-- Radius of the top left corner. -->
+        <attr name="topLeftRadius" format="dimension"/>
+        <!-- Radius of the top right corner. -->
+        <attr name="topRightRadius" format="dimension"/>
+        <!-- Radius of the bottom left corner. -->
+        <attr name="bottomLeftRadius" format="dimension"/>
+        <!-- Radius of the bottom right corner. -->
+        <attr name="bottomRightRadius" format="dimension"/>
+
+        <attr name="arrowRadius" format="dimension"/>
+        <attr name="arrowSideLength" format="dimension"/>
+        <attr name="arrowStartDistance" format="dimension"/>
+        <attr name="arrowDirection" format="integer">
+            <flag name="top" value="0"/>
+            <flag name="left" value="1"/>
+            <flag name="bottom" value="2"/>
+            <flag name="right" value="3"/>
+        </attr>
+    </declare-styleable>
+</resources>
