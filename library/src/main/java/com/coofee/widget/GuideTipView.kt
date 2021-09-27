@@ -39,15 +39,20 @@ class GuideTipView @JvmOverloads constructor(
     val arrowHeight: Float
     var arrowStartDistance: Float = 0f
         set(value) {
-            field = value
-            requestLayout()
-            invalidate()
+            if (field != value) {
+                field = value
+                generateBackgroundPath(width, height)
+                invalidate()
+            }
         }
     var arrowDirection: Int = Gravity.TOP
         set(value) {
-            field = value
-            requestLayout()
-            invalidate()
+            if (field != value) {
+                field = value
+                forceLayout()
+                generateBackgroundPath(width, height)
+                invalidate()
+            }
         }
 
 
@@ -127,7 +132,20 @@ class GuideTipView @JvmOverloads constructor(
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
+        generateBackgroundPath(w, h)
+    }
 
+    override fun onDraw(canvas: Canvas?) {
+        super.onDraw(canvas)
+
+        val c = canvas ?: return
+        c.save()
+        canvas.clipPath(backgroundPath)
+        srcDrawable.draw(canvas)
+        c.restore()
+    }
+
+    private fun generateBackgroundPath(w: Int, h: Int) {
         backgroundPath.reset()
 
         val floatRadius = if (radiusRound) {
@@ -228,17 +246,7 @@ class GuideTipView @JvmOverloads constructor(
 
 //        Log.d(
 //            "GuideTipView",
-//            "w=${w}, h=${h}, oldw=${oldw}, oldh=${oldh}, arrowRadius=${arrowRadius}, arrowHeight=${arrowHeight}, backgroundPath=${backgroundPath}"
+//            "w=${w}, h=${h} arrowRadius=${arrowRadius}, arrowHeight=${arrowHeight}, backgroundPath=${backgroundPath}"
 //        )
-    }
-
-    override fun onDraw(canvas: Canvas?) {
-        super.onDraw(canvas)
-
-        val c = canvas ?: return
-        c.save()
-        canvas.clipPath(backgroundPath)
-        srcDrawable.draw(canvas)
-        c.restore()
     }
 }
